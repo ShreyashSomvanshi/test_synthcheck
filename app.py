@@ -1,10 +1,11 @@
 import streamlit as st
 import tensorflow as tf
 import numpy as np
-from tensorflow.keras.models import load_model
+# from tensorflow.keras.models import load_model
 import urllib.request
 from PIL import Image
-import subprocess
+import requests
+from io import BytesIO
 import os
 
 st.set_page_config(
@@ -13,14 +14,16 @@ st.set_page_config(
 
 st.title('SynthCheck: A Synthetic Image Identifier ')
 
-#image = Image.open('real vs ai.jpg')
-#new_image = image.resize((400, 200))
-#st.image(new_image)
-# st.image('real vs ai.jpg', width=400)
+# GitHub URL of your model file (replace with your actual URL)
+github_model_url = "https://raw.githubusercontent.com/ShreyashSomvanshi/test_synthcheck/main/firstModel.h5"
 
+# Load model from GitHub
+response = requests.get(github_model_url)
+model_content = BytesIO(response.content)
+model = tf.keras.models.load_model(model_content)
 
 def classify_image(file_path):
-    model = load_model('firstModel.h5')
+    # model = load_model('firstModel.h5')
     image = Image.open(file_path) # reading the image
     image = image.resize((32, 32)) # resizing the image to fit the trained model   
     img = np.asarray(image) # converting it to numpy array
@@ -30,7 +33,6 @@ def classify_image(file_path):
         res = 'Predicted class: REAL'
     else:
         res = 'Predicted class: SYNTHETIC'
-        
     return res
 
     
