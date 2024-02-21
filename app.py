@@ -35,9 +35,9 @@ def classify_image(file_path):
     img = np.expand_dims(img/255, 0)
     predictions = model.predict(img) # predicting the label
     if predictions > 0.5:
-        res = 'Predicted class: REAL'
+        res = 'REAL'
     else:
-        res = 'Predicted class: SYNTHETIC'
+        res = 'SYNTHETIC'
     return res
 
     
@@ -45,11 +45,11 @@ def classify_image(file_path):
 st.write("Upload an image to check whether it is a fake or real image.")
 
 file_uploaded = st.file_uploader("Choose the Image File", type=["jpg", "png", "jpeg"])
-if file_uploaded is not None:
-    res = classify_image(file_uploaded)
-    c1, buff, c2 = st.columns([2, 0.5, 2])
-    c1.image(file_uploaded, use_column_width=True)
-    c2.subheader("Classification Result")
-    c2.write("The image is classified as **{}**.".format(res.title()))
 
-st.button('Check', use_container_width=True) #use_container_width=True
+if st.button('Check', use_container_width=True) #use_container_width=True
+    if file_uploaded is not None:
+        res = classify_image(file_uploaded)
+        c1, buff, c2 = st.columns([2, 0.5, 2])
+        c1.image(file_uploaded, use_column_width=True)
+        c2.subheader("Classification Result")
+        c2.write("The image is classified as **{}**.".format(res.title()))
