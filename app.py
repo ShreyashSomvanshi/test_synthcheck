@@ -17,10 +17,15 @@ st.title('SynthCheck: A Synthetic Image Identifier ')
 # GitHub URL of your model file (replace with your actual URL)
 github_model_url = "https://raw.githubusercontent.com/ShreyashSomvanshi/test_synthcheck/main/firstModel.h5"
 
-# Load model from GitHub
+
+# Download the model file
 response = requests.get(github_model_url)
-model_content = BytesIO(response.content)
-model = tf.keras.models.load_model(model_content)
+with open("firstModel.h5", "wb") as f:
+    f.write(response.content)
+
+# Load the model using TensorFlow
+model = tf.keras.models.load_model("firstModel.h5")
+
 
 def classify_image(file_path):
     # model = load_model('firstModel.h5')
