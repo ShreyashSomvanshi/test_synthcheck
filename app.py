@@ -13,6 +13,9 @@ st.set_page_config(
 
 st.title('SynthCheck: A Synthetic Image Identifier ')
 
+st.toast("By accessing our website, users acknowledge and accept full responsibility for their activities conducted within the platform. We prioritize your privacy and do not retain or distribute any images you upload.",icon="⚠️")
+
+
 # GitHub URL of your model file (replace with your actual URL)
 github_model_url = "https://raw.githubusercontent.com/ShreyashSomvanshi/test_synthcheck/main/firstModel.h5"
 
@@ -48,7 +51,7 @@ def classify_image(file_path):
     
     
 st.write("Upload an image to check whether it is a fake or real image.")
-st.toast("By accessing our website, users acknowledge and accept full responsibility for their activities conducted within the platform. We prioritize your privacy and do not retain or distribute any images you upload.",icon="⚠️")
+
 file_uploaded = st.file_uploader("Choose the Image File", type=["jpg", "png", "jpeg"])
 
 if st.button('Check', use_container_width=True):
