@@ -50,14 +50,16 @@ def classify_image(file_path):
 st.write("Upload an image to check whether it is a fake or real image.")
 
 file_uploaded = st.file_uploader("Choose the Image File", type=["jpg", "jpeg"])
-if file_uploaded:
-    st.toast("Please note that results may not always be accurate. By accessing our website, users acknowledge and accept full responsibility for their activities conducted within the platform. We prioritize your privacy and do not retain or distribute any images you upload.",icon="⚠️")
 
+#Notice: By accessing our website, users acknowledge and accept full responsibility for their activities conducted within the platform. We prioritize your privacy and do not retain or distribute any images you upload
 
 if st.button('Check', use_container_width=True):
     if file_uploaded is not None:
+        st.toast("Please note that results may not always be accurate. We prioritize your privacy and do not store or distribute any images you upload.",icon="⚠️")
         res = classify_image(file_uploaded)
         c1, buff, c2 = st.columns([2, 0.5, 2])
         c1.image(file_uploaded, use_column_width=True)
         c2.subheader("Classification Result")
         c2.write("The image is classified as **{}**.".format(res.title()))
+    else:
+        st.error('Please upload an image to verify.', icon="❌")
